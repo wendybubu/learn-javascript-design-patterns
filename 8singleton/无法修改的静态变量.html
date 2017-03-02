@@ -15,7 +15,8 @@
         return {
             get: function (name) {
                 return conf[name] ? conf[name] : null;
-//                return conf[name]; // 如果没有使用上面的三目运算，直接返回一个未定义的变量，则上述将返回 null， 本行将返回 undefined
+                // 如果没有使用上面的三目运算（见下一行代码），然后直接返回一个未定义的变量，那么，上一行代码将返回 null， 下面一行代码将返回 undefined
+                // return conf[name];
             }
         };
     })();

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>链式调用</title>
+</head>
+<body>
+<script>
+    // 对象直接量的链式调用
+    var Chain1 = {
+        method1: function () {
+            console.log('method1');
+            return this;
+        },
+        method2: function () {
+            console.log('method2');
+            return this;
+        }
+    };
+    Chain1.method1().method2();
+    // 原型方式的链式调用
+    var Chain2 = function () {
+    };
+    Chain2.prototype = {
+        method1: function () {
+            console.log('method1');
+            return this;
+        },
+        method2: function () {
+            console.log('method2');
+            return this;
+        }
+    };
+    var chain2 = new Chain2();
+    chain2.method1().method2();
+</script>
+</body>
+</html>
