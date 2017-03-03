@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>属性与方法封装or构造函数和原型</title>
+</head>
+<body>
+<script>
+    var Book = function (id, name, price) {
+        // 私有属性
+        var num = 1;
+        // 私有方法
+        function checkId() {
+        }
+
+        /**
+         * “对象公有”的属性和方法（“对象公有”为某个实例所有）：
+         *   1. 在构造函数内部可通过this使用点语法进行访问；
+         *   2. 在构造函数外部可通过实例的点语法进行访问；
+         * 注意：
+         *   区分私有属性和方法——只能在构造函数内部访问私有属性和方法
+         */
+        // 对象公有属性和方法
+        this.id = id;
+        this.copy = function () {
+        };
+        // 特权方法（能访问“公有”和“私有”的属性和方法）
+        this.getName = function () {
+        };
+        this.getPrice = function () {
+        };
+        this.setName = function () {
+        };
+        this.setPrice = function () {
+        };
+        // 构造器（在创建实例时调用的特权方法）
+        this.setName(name);
+        this.setPrice(price);
+    };
+    // 类静态公有属性和方法（实例不能访问，要通过类进行访问）
+    Book.isChinese = true;
+    Book.resetTime = function () {
+        console.log('new Time');
+    };
+    // （原型属性和方法）公有属性和方法（“公有”为所有实例所共有）
+    Book.prototype = {
+        isJSBook: false,
+        display: function () {
+        }
+    };
+</script>
+</body>
+</html>
