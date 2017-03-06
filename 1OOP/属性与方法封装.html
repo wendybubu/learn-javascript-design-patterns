@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>属性与方法封装or构造函数和原型</title>
+</head>
+<body>
+<script>
+    var Book = function (id, name, price) {
+        // 私有属性
+        var num = 1;
+        // 私有方法
+        function checkId() {
+        }
+
+        /**
+         * “对象公有”的属性和方法（“对象公有”是为某个对象/实例所有）：
+         *   1. 即： 实例属性和方法
+         *   2. 在构造函数内部可通过 this 使用点语法进行访问；
+         *   3. 在构造函数外部可通过 对象/实例 的点语法进行访问；
+         * 注意：
+         *   区分私有属性和方法——私有属性和方法只能在构造函数内部访问
+         */
+        // 对象公有属性和方法：
+        this.id = id;
+        this.copy = function () {
+        };
+        /**
+         * 特权方法：
+         *   1. 能访问“公有”和“私有”的属性和方法；
+         *   2. 其中“公有”包括实例的属性方法和原型的属性方法；
+         */
+        // 访问对象/实例的公有属性方法
+        this.getId = function () {
+            return this.id;
+        };
+        // 访问私有属性方法
+        this.getName = function () {
+            return name;
+        };
+        this.getPrice = function () {
+            return price;
+        };
+        this.getNum = function () {
+            return num;
+        };
+        // 访问原型属性方法
+        this.getClass = function () {
+            return this.classes;
+        };
+        // 设置
+        this.setName = function () {
+        };
+        this.setPrice = function () {
+        };
+        /**
+         * 构造器：
+         *   在创建实例时调用的特权方法
+         */
+        this.setName(name);
+        this.setPrice(price);
+    };
+    /**
+     * 类静态公有属性和方法：
+     *   实例不能访问，要通过类进行访问
+     */
+    Book.isChinese = true;
+    Book.resetTime = function () {
+        console.log('new Time');
+    };
+    /**
+     * 公有属性和方法：
+     *   1. 原型属性和方法；
+     *   2. “公有”是为所有实例所共有；
+     */
+    Book.prototype = {
+        classes: 'JsBook',
+        display: function () {
+            console.log(this.getName());
+        }
+    };
+    /**
+     * 通过 new 关键字创建对象/实例的实质是：
+     *   1. 对新对象 this 的不断赋值；
+     *   2. 将新对象的 prototype 指向类的prototype 所指向的对象；
+     */
+    var a = new Book('id001', '《JavaScript 设计模式》', '59 RMB');
+    var b = new Book('id002', '《JavaScript 高级程序设计》', 'xxx RMB');
+    console.log('getId', a.getId());
+    console.log('getNum', a.getNum());
+    console.log('getPrice', a.getPrice());
+    console.log('getClass', a.getClass());
+    a.display();
+    b.display();
+</script>
+</body>
+</html>
