@@ -6,7 +6,7 @@
 </head>
 <body>
 <script>
-    var Book = function (id, name, price) {
+    var Book = function (id, bookName, price) {
         // 私有属性
         var num = 1;
         // 私有方法
@@ -36,10 +36,10 @@
         };
         // 访问私有属性方法
         this.getName = function () {
-            return name;
+            return this.bookName;
         };
         this.getPrice = function () {
-            return price;
+            return this.price;
         };
         this.getNum = function () {
             return num;
@@ -49,15 +49,17 @@
             return this.classes;
         };
         // 设置
-        this.setName = function () {
+        this.setName = function (bookName) {
+            this.bookName = '书名：' + bookName;
         };
-        this.setPrice = function () {
+        this.setPrice = function (price) {
+            this.price = '价格：' + price;
         };
         /**
          * 构造器：
          *   在创建实例时调用的特权方法
          */
-        this.setName(name);
+        this.setName(bookName);
         this.setPrice(price);
     };
     /**
@@ -84,14 +86,14 @@
      *   1. 对新对象 this 的不断赋值；
      *   2. 将新对象的 prototype 指向类的prototype 所指向的对象；
      */
-    var a = new Book('id001', '《JavaScript 设计模式》', '59 RMB');
-    var b = new Book('id002', '《JavaScript 高级程序设计》', 'xxx RMB');
-    console.log('getId', a.getId());
-    console.log('getNum', a.getNum());
-    console.log('getPrice', a.getPrice());
-    console.log('getClass', a.getClass());
-    a.display();
-    b.display();
+    var bookA = new Book('001', '《JavaScript 设计模式》', '59 RMB');
+    var bookB = new Book('002', '《JavaScript 高级程序设计》', 'xxx RMB');
+    console.log('Id: ', bookA.getId());
+    console.log('Num: ', bookA.getNum());
+    console.log(bookA.getPrice());
+    console.log('Class: ', bookA.getClass());
+    bookA.display();
+    bookB.display();
 </script>
 </body>
 </html>
