@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>类式继承</title>
+</head>
+<body>
+<script>
+    /**
+     * 类式继承：
+     *   子类的原型被赋予父类的实例
+     */
+    // 父类
+    function SuperClass(superId) {
+        this.superValue = 'super';
+        this.books = ['js', 'html', 'css'];
+        this.superId = superId;
+        console.log(this.superId);
+    }
+    // 为父类添加公有方法
+    SuperClass.prototype.getSuperValue = function () {
+        return this.superValue;
+    };
+    // 子类
+    function SubClass(subId) {
+        this.subValue = 'sub';
+        this.id = subId;
+        console.log(this.id);
+    }
+    /**
+     * 继承父类（子类的原型被赋予父类的实例）
+     */
+    SubClass.prototype = new SuperClass('This is super id.');
+    // 为子类添加公有方法
+    SubClass.prototype.getSubValue = function () {
+        return this.subValue;
+    };
+    // 使用
+    var instance = new SubClass('000');
+    console.log(instance.getSubValue());
+    console.log(instance.getSuperValue());
+    // 判断前面对象是否是后面类的实例（并不表示两者的继承）
+    console.log(instance instanceof SubClass);
+    console.log(instance instanceof SuperClass);
+    console.log(SubClass instanceof SuperClass); // （注意，判断的是“实例”，而不是“继承”）
+    console.log(SubClass.prototype instanceof SuperClass);
+    // 你所创建的所有对象都是Object的实例
+    console.log(instance instanceof Object);
+    /**
+     * 类式继承的两个缺点：
+     *   1. 父类中的“对象公有属性”如果是引用类型，就会在子类中被所有实例共用，那么，一个子类的实例更改了子类原型从父类构造函数中继承来的“对象公有属性”就会直接影响到其他子类
+     *   2. 由于子类实现的继承是靠其原型prototype对父类实例化实现的，在创建父类的时候，无法向父类传递参数，因此，在实例化父类的时候也无法对父类构造函数内的属性进行初始化
+     */
+    var instance1 = new SubClass('001');
+    var instance2 = new SubClass('002');
+    console.log(instance2.books);// ["js", "html", "css"]
+    instance1.books.push('设计模式'); // instance1的修改，影响了instance2的books属性
+    console.log(instance2.books);// ["js", "html", "css", "设计模式"]
+</script>
+</body>
+</html>
