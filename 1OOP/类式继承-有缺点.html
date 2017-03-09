@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>类式继承</title>
+<title>类式继承-有缺点</title>
 </head>
 <body>
 <script>
@@ -13,7 +13,7 @@
     // 父类
     function SuperClass(superId) {
         this.superValue = 'super';
-        this.books = ['js', 'html', 'css'];
+        this.books = ['js', 'html', 'css'];// 引用类型的实例属性
         this.superId = superId;
         console.log(this.superId);
     }
@@ -48,14 +48,20 @@
     console.log(instance instanceof Object);
     /**
      * 类式继承的两个缺点：
-     *   1. 父类中的“对象公有属性”如果是引用类型，就会在子类中被所有实例共用，那么，一个子类的实例更改了子类原型从父类构造函数中继承来的“对象公有属性”就会直接影响到其他子类
+     *   1. 父类中的“对象公有属性”（实例属性）如果是引用类型，就会在子类中被所有实例共用，那么，一个子类的实例更改了子类原型从父类构造函数中继承来的“对象公有属性”就会直接影响到其他子类
      *   2. 由于子类实现的继承是靠其原型prototype对父类实例化实现的，在创建父类的时候，无法向父类传递参数，因此，在实例化父类的时候也无法对父类构造函数内的属性进行初始化
      */
     var instance1 = new SubClass('001');
     var instance2 = new SubClass('002');
+    // 父类实例属性为引用类型，在子类中被所有实例共用
     console.log(instance2.books);// ["js", "html", "css"]
     instance1.books.push('设计模式'); // instance1的修改，影响了instance2的books属性
     console.log(instance2.books);// ["js", "html", "css", "设计模式"]
+    // 父类实例属性为基本类型，每个子类的实例各自拥有一份
+    console.log(instance1.superValue); // super
+    instance1.superValue = 'super to sub';
+    console.log(instance1.superValue); // super to sub
+    console.log(instance2.superValue); // super
 </script>
 </body>
 </html>
